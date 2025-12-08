@@ -1,11 +1,11 @@
 services:
   app:
-    image: neyzamaylanies/transaksi-app:latest
-    build: .
+    # Pastikan ini sudah pakai username kamu, contoh:
+    image: neyzamaylanies/transaksi-app:latest 
     container_name: transaksi-app
     depends_on:
       - mysql
-      - db-init        # pastikan init selesai dulu
+      - db-init
     environment:
       SPRING_PROFILES_ACTIVE: docker
     ports:
@@ -13,8 +13,8 @@ services:
     networks:
       - backend
 
-  # 🗃️ MySQL - Database Server
   mysql:
+    # ... (bagian ini biarin aja kayak yang lama) ...
     image: mysql:8.0
     container_name: mysql-db
     restart: unless-stopped
@@ -31,31 +31,31 @@ services:
       - backend
 
   db-init:
-    image: mysql:8.0
-    container_name: mysql-init
-    depends_on:
-      - mysql
-    # 💡 Tidak pakai -p di command line, pakai MYSQL_PWD
-    environment:
-      MYSQL_PWD: rootpassword
-    command: >
-      sh -c "
-        echo 'Waiting for MySQL...';
-        until mysqladmin ping -hmysql -uroot --silent; do
-          sleep 1;
-        done;
-        echo 'MySQL is up, running init script...';
-        mysql -hmysql -uroot mydb < /init/penjualan.sql;
-        echo 'Init done.';
-      "
-    volumes:
-      - ./db/penjualan.sql:/init/penjualan.sql
-    restart: "no"
-    networks:
-      - backend
+     # ... (bagian ini biarin aja) ...
+     image: mysql:8.0
+     container_name: mysql-init
+     depends_on:
+       - mysql
+     environment:
+       MYSQL_PWD: rootpassword
+     command: >
+       sh -c "
+         echo 'Waiting for MySQL...';
+         until mysqladmin ping -hmysql -uroot --silent; do
+           sleep 1;
+         done;
+         echo 'MySQL is up, running init script...';
+         mysql -hmysql -uroot mydb < /init/penjualan.sql;
+         echo 'Init done.';
+       "
+     volumes:
+       - ./db/penjualan.sql:/init/penjualan.sql
+     restart: "no"
+     networks:
+       - backend
 
-  # 🔧 phpMyAdmin - Database Management Tool
   phpmyadmin:
+    # ... (bagian ini biarin aja) ...
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: unless-stopped
@@ -68,6 +68,16 @@ services:
       PMA_PASSWORD: rootpassword
     ports:
       - "8081:80"
+    networks:
+      - backend
+
+  # 🔥 TAMBAHKAN BAGIAN INI DI PALING BAWAH SERVICES 🔥
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 # Cek update setiap 30 detik
     networks:
       - backend
 

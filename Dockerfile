@@ -1,5 +1,6 @@
 # ========== STAGE 1: BUILD DENGAN MAVEN ==========
-FROM maven:3.9-eclipse-temurin-25-alpine AS build
+# Kita pakai Maven dengan JDK 21 (Alpine biar kecil)
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
 
 WORKDIR /app
 
@@ -7,11 +8,12 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-# Build jar (skip test kalau mau cepat)
+# Build jar (skip test biar cepet)
 RUN mvn -B -DskipTests package
 
 # ========== STAGE 2: RUNTIME JAR ==========
-FROM eclipse-temurin:25-jdk-alpine
+# Runtime-nya juga harus JDK 21
+FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 
