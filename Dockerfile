@@ -1,6 +1,5 @@
 # ========== STAGE 1: BUILD DENGAN MAVEN ==========
-# Kita pakai Maven dengan JDK 21 (Alpine biar kecil)
-FROM maven:3.9-eclipse-temurin-21-alpine AS build
+FROM maven:3.9-eclipse-temurin-25-alpine AS build
 
 WORKDIR /app
 
@@ -12,8 +11,8 @@ COPY src ./src
 RUN mvn -B -DskipTests package
 
 # ========== STAGE 2: RUNTIME JAR ==========
-# Runtime-nya juga harus JDK 21
-FROM eclipse-temurin:21-jdk-alpine
+# Runtime-nya juga harus JDK 25
+FROM eclipse-temurin:25-jdk-alpine
 
 WORKDIR /app
 

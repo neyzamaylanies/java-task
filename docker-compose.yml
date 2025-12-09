@@ -1,7 +1,6 @@
 services:
   app:
     # Pastikan ini sudah pakai username kamu, contoh:
-    image: neyzamaylanies/transaksi-app:latest 
     container_name: transaksi-app
     depends_on:
       - mysql
@@ -14,13 +13,12 @@ services:
       - backend
 
   mysql:
-    # ... (bagian ini biarin aja kayak yang lama) ...
     image: mysql:8.0
     container_name: mysql-db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: penjualan
       MYSQL_USER: myuser
       MYSQL_PASSWORD: mypassword
     volumes:
@@ -31,7 +29,6 @@ services:
       - backend
 
   db-init:
-     # ... (bagian ini biarin aja) ...
      image: mysql:8.0
      container_name: mysql-init
      depends_on:
@@ -55,7 +52,6 @@ services:
        - backend
 
   phpmyadmin:
-    # ... (bagian ini biarin aja) ...
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: unless-stopped
@@ -71,15 +67,14 @@ services:
     networks:
       - backend
 
-  # 🔥 TAMBAHKAN BAGIAN INI DI PALING BAWAH SERVICES 🔥
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 # Cek update setiap 30 detik
-    networks:
-      - backend
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: --interval 30 # Cek update setiap 30 detik
+  #   networks:
+  #     - backend
 
 networks:
   backend:
