@@ -11,6 +11,7 @@ Selamat datang di repositori Github saya! 👋 Ini adalah aplikasi Transaksi Jua
 ## 📝 License
 
 Project ini menggunakan MIT License - bebas dipake buat belajar!
+
 ---
 
 **Happy Coding! 🚀✨**
