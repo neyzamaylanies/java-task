@@ -1,89 +1,5 @@
 services:
   app:
-    # Pastikan ini sudah pakai username kamu, contoh:
-    container_name: transaksi-app
-    depends_on:
-      - mysql
-      - db-init
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-    ports:
-      - "8080:8080"
-    networks:
-      - backend
-
-  mysql:
-    image: mysql:8.0
-    container_name: mysql-db
-    restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: penjualan
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
-    volumes:
-      - mysql-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    networks:
-      - backend
-
-  db-init:
-     image: mysql:8.0
-     container_name: mysql-init
-     depends_on:
-       - mysql
-     environment:
-       MYSQL_PWD: rootpassword
-     command: >
-       sh -c "
-         echo 'Waiting for MySQL...';
-         until mysqladmin ping -hmysql -uroot --silent; do
-           sleep 1;
-         done;
-         echo 'MySQL is up, running init script...';
-         mysql -hmysql -uroot mydb < /init/penjualan.sql;
-         echo 'Init done.';
-       "
-     volumes:
-       - ./db/penjualan.sql:/init/penjualan.sql
-     restart: "no"
-     networks:
-       - backend
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin
-    restart: unless-stopped
-    depends_on:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: rootpassword
-    ports:
-      - "8081:80"
-    networks:
-      - backend
-
-  # watchtower:
-  #   image: containrrr/watchtower
-  #   container_name: watchtower
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   command: --interval 30 # Cek update setiap 30 detik
-  #   networks:
-  #     - backend
-
-networks:
-  backend:
-    driver: bridge
-
-volumes:
-  mysql-data:
-services:
-  app:
     image: ${DOCKERHUB_USERNAME}/transaksi-app:latest
     container_name: transaksi-app
     depends_on:
@@ -98,7 +14,7 @@ services:
     networks:
       - backend
 
-  # 🗃️ MySQL - Database Server
+# 🗃️ MySQL - Database Server
   mysql:
     image: mysql:8.0
     container_name: mysql-db
@@ -145,8 +61,7 @@ services:
     networks:
       - backend
 
-  # 🔧 phpMyAdmin - Database Management Tool
-  phpmyadmin:
+phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
     restart: unless-stopped
@@ -163,10 +78,22 @@ services:
     networks:
       - backend
 
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   command: --interval 30 # Cek update setiap 30 detik
+  #   networks:
+  #     - backend
+
 networks:
   backend:
     driver: bridge
 
 volumes:
   mysql-data:
-    driver: local
+     - backend
+
+
+
