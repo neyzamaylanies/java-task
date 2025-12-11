@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 services:
   app:
     # Pastikan ini sudah pakai username kamu, contoh:
@@ -170,3 +171,78 @@ networks:
 volumes:
   mysql-data:
     driver: local
+=======
+services:
+  app:
+    image: ${DOCKERHUB_USERNAME}/transaksi-app:latest
+    container_name: transaksi-app
+    depends_on:
+      mysql:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    networks: [backend]
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: penjualan
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks: [backend]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpassword"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
+
+  db-init:
+    image: mysql:8.0
+    container_name: mysql-init
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      MYSQL_PWD: rootpassword
+    command: >
+      sh -c "
+        until mysqladmin ping -hmysql -uroot --silent; do sleep 1; done;
+        mysql -hmysql -uroot penjualan < /init/penjualan.sql;
+      "
+    volumes:
+      - ./db/penjualan.sql:/init/penjualan.sql
+    restart: "no"
+    networks: [backend]
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PMA_HOST: mysql
+      PMA_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    networks: [backend]
+
+networks:
+  backend:
+
+volumes:
+  mysql-data:
+>>>>>>> upstream/master
