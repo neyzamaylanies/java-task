@@ -48,4 +48,17 @@ public class OpenApiConfig {
                                 .build();
         }
 
+        /*
+         * ======================================================
+         * GROUP: PELANGGAN
+         * ======================================================
+         */
+        @Bean
+        public GroupedOpenApi pelangganApi() {
+                return GroupedOpenApi.builder()
+                                .group("Pelanggan")
+                                .pathsToMatch("/api/pelanggan/**")
+                                .build();
+        }
+
 }
