@@ -1,6 +1,7 @@
 services:
   app:
     image: ${DOCKERHUB_USERNAME}/transaksi-app:latest
+    build: .
     container_name: transaksi-app
     depends_on:
       mysql:
