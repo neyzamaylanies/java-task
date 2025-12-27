@@ -11,7 +11,7 @@ public class Pemasok {
     private String idPemasok;
 
     @Column(name = "nama", length = 255)
-    private String namaPemasok;
+    private String namaPemasok; // Perhatikan ini nama variabelnya 'namaPemasok' di Service
 
     @Column(name = "alamat", length = 255)
     private String alamat;
@@ -23,7 +23,7 @@ public class Pemasok {
     private String email;
 
     protected Pemasok() {
-        // untuk JPA
+        // for JPA
     }
 
     public Pemasok(String idPemasok, String namaPemasok, String alamat, String telepon, String email) {
@@ -36,43 +36,43 @@ public class Pemasok {
 
     // === GETTERS & SETTERS ===
 
-    public String getIdPemasok() {
-        return idPemasok;
+    public String getIdPemasok() { 
+        return idPemasok; 
     }
 
-    public void setIdPemasok(String idPemasok) {
-        this.idPemasok = idPemasok;
+    public void setIdPemasok(String idPemasok) { 
+        this.idPemasok = idPemasok; 
     }
 
-    public String getNamaPemasok() {
-        return namaPemasok;
+    public String getNamaPemasok() { 
+        return namaPemasok; 
     }
 
-    public void setNamaPemasok(String namaPemasok) {
-        this.namaPemasok = namaPemasok;
+    public void setNamaPemasok(String namaPemasok) { 
+        this.namaPemasok = namaPemasok; 
     }
 
-    public String getAlamat() {
-        return alamat;
+    public String getAlamat() { 
+        return alamat; 
     }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setAlamat(String alamat) { 
+        this.alamat = alamat; 
     }
 
-    public String getTelepon() {
-        return telepon;
+    public String getTelepon() { 
+        return telepon; 
     }
 
-    public void setTelepon(String telepon) {
-        this.telepon = telepon;
+    public void setTelepon(String telepon) { 
+        this.telepon = telepon; 
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmail() { 
+        return email; 
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email) { 
+        this.email = email; 
     }
 }

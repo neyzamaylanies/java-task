@@ -16,13 +16,13 @@ public class DetailTransaksi {
     private String idBarang;
 
     @Column(name = "jumlah")
-    private Integer jumlah;
+    private Short jumlah;
 
     protected DetailTransaksi() {
         // for JPA
     }
 
-    public DetailTransaksi(String kodeTransaksi, String idBarang, Integer jumlah) {
+    public DetailTransaksi(String kodeTransaksi, String idBarang, Short jumlah) {
         this.kodeTransaksi = kodeTransaksi;
         this.idBarang = idBarang;
         this.jumlah = jumlah;
@@ -44,11 +44,11 @@ public class DetailTransaksi {
         this.idBarang = idBarang; 
     }
 
-    public Integer getJumlah() { 
+    public Short getJumlah() { 
         return jumlah; 
     }
 
-    public void setJumlah(Integer jumlah) { 
+    public void setJumlah(Short jumlah) { 
         this.jumlah = jumlah; 
     }
 }

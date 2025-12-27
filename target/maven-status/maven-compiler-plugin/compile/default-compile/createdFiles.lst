@@ -15,6 +15,7 @@ ui\ft\ccit\faculty\transaksi\pemasok\model\Pemasok.class
 ui\ft\ccit\faculty\transaksi\GlobalExceptionHandler.class
 ui\ft\ccit\faculty\transaksi\transaksi\controller\TransaksiController.class
 ui\ft\ccit\faculty\transaksi\pelanggan\controller\PelangganController.class
+ui\ft\ccit\faculty\transaksi\detailtransaksi\model\DetailTransaksiId.class
 ui\ft\ccit\faculty\transaksi\pemasok\controller\PemasokController.class
 ui\ft\ccit\faculty\transaksi\pelanggan\view\PelangganService.class
 ui\ft\ccit\faculty\transaksi\transaksi\model\TransaksiRepository.class

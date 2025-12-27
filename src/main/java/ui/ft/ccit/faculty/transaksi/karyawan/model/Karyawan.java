@@ -30,7 +30,7 @@ public class Karyawan {
     private Double gaji;
 
     protected Karyawan() {
-        // For JPA
+        // for JPA
     }
 
     public Karyawan(String idKaryawan, String nama, Character jenisKelamin, String alamat, String telepon, LocalDate tglLahir, Double gaji) {
@@ -43,7 +43,7 @@ public class Karyawan {
         this.gaji = gaji;
     }
 
-    // === GETTERS & SETTERS (Bisa generate otomatis dengan klik kanan lalu pilih source code) ===
+    // === GETTERS & SETTERS ===
 
     public String getIdKaryawan() { 
         return idKaryawan; 
@@ -78,7 +78,7 @@ public class Karyawan {
     }
 
     public String getTelepon() { 
-        return telepon;     
+        return telepon; 
     }
 
     public void setTelepon(String telepon) { 
