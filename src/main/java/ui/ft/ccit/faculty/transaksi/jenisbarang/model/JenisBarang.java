@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class JenisBarang {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // kalau tabel kamu auto increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_jenis_brg")
     private Byte idJenisBarang;
 
@@ -15,7 +15,7 @@ public class JenisBarang {
     private String namaJenis;
 
     protected JenisBarang() {
-        // untuk JPA
+        // for JPA
     }
 
     public JenisBarang(Byte idJenisBarang, String namaJenis) {
@@ -25,20 +25,19 @@ public class JenisBarang {
 
     // === GETTERS & SETTERS ===
 
-    public Byte getIdJenisBarang() {
-        return idJenisBarang;
+    public Byte getIdJenisBarang() { 
+        return idJenisBarang; 
     }
 
-    public void setIdJenisBarang(Byte idJenisBarang) {
+    public void setIdJenisBarang(Byte idJenisBarang) { 
         this.idJenisBarang = idJenisBarang;
     }
 
-    public String getNamaJenis() {
-        return namaJenis;
+    public String getNamaJenis() { 
+        return namaJenis; 
     }
 
-    public void setNamaJenis(String namaJenis) {
-        this.namaJenis = namaJenis;
+    public void setNamaJenis(String namaJenis) { 
+        this.namaJenis = namaJenis; 
     }
-
 }

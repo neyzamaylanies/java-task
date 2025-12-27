@@ -7,7 +7,12 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    # Settingan database di Docker Compose
+    url: jdbc:mysql://mysql-db:3306/penjualan?useSSL=false&serverTimezone=Asia/Jakarta
+    username: myuser
+    password: mypassword
 
+  # KONFIGURASI RESOURCE SERVER (Validasi Token dari Google)
   security:
     oauth2:
       resourceserver:
